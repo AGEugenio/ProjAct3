@@ -7,32 +7,36 @@ key = "Ej1k612iGrgYHYUSqvrUyZtkByRg4Ubk"
 
 #Conversion of unit
 def distance_unit(dist_unit):
-    if unit_length== "mi" or unit_length=="miles" or unit_length=="Miles":
+    #if unit_length== "mi" or unit_length=="miles" or unit_length=="Miles":
+    if unit_length.lower()=="mi" or unit_length.lower()=="miles":
         distance = dist_unit
-    elif unit_length=="km" or unit_length=="kilometer" or unit_length=="Kilometer":
+    elif unit_length.lower()=="km" or unit_length.lower()=="kilometer":
         distance =dist_unit * 1.61
-    elif unit_length== "m" or unit_length=="meter" or unit_length=="Meter":
+    elif unit_length.lower()== "m" or unit_length.lower()=="meter":
         distance = dist_unit * 1610
-
     return distance
 
 #The Preferred Unit
-def unit_choice(unit_input):
-       
-   if unit_input== "mi" or unit_input=="miles" or unit_input=="Miles":
+def unit_choice(unit_input):  
+   #if unit_input== "mi" or unit_input=="miles" or unit_input=="Miles":
+   if unit_input=="mi" or unit_input=="miles":
             unit = "mi"
-            
-   elif unit_input=="km" or unit_input=="kilometer" or unit_input=="Kilometer":
+   elif unit_input=="km" or unit_input=="kilometer":
             unit = "km"
-        
-   elif unit_input== "m" or unit_input=="meter" or unit_input=="Meter":
+   elif unit_input== "m" or unit_input=="meter":
             unit = "m"
-            
    else:
             unit ='0'
    return unit
-     
 
+#The Preferred Route Type  
+def route_choose(route_input):
+    if route_input in ('fastest','shortest','pedestrian','bicycle'):
+        type = route_input
+    else:
+        type = '0'
+    return type
+    
 while True:
     orig = input("Starting Location: ")
     if orig == "quit" or orig == "q":
@@ -41,13 +45,19 @@ while True:
     if dest == "quit" or dest == "q":
         break
   #Choose the preferred unit
-    unit_length = input("Select your Preferred Unit |m  km  mi| : ") 
+    unit_length = input("Select your Preferred Unit |m  km  mi| : ").casefold()
     unit=unit_choice(unit_length)
     if unit == "0":
         print("Invalid Input")
         break
     print("............")
-    url = main_api + urllib.parse.urlencode({"key": key, "from":orig, "to":dest})
+    routeType = input("Select your Preferred Route Type |fastest shortest pedestrian bicycle| : ").casefold()
+    type=route_choose(routeType)
+    if type == "0": 
+        print("Invalid input!")
+        break
+    print("............")
+    url = main_api + urllib.parse.urlencode({"key": key, "from":orig, "to":dest, "type":type})
     print("URL: " + (url))
     json_data = requests.get(url).json()
     json_status = json_data["info"]["statuscode"]
