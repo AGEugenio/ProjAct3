@@ -7,7 +7,6 @@ key = "Ej1k612iGrgYHYUSqvrUyZtkByRg4Ubk"
 
 #Conversion of unit
 def distance_unit(dist_unit):
-    #if unit_length== "mi" or unit_length=="miles" or unit_length=="Miles":
     if unit_length.lower()=="mi" or unit_length.lower()=="miles":
         distance = dist_unit
     elif unit_length.lower()=="km" or unit_length.lower()=="kilometer":
@@ -18,7 +17,6 @@ def distance_unit(dist_unit):
 
 #The Preferred Unit
 def unit_choice(unit_input):  
-   #if unit_input== "mi" or unit_input=="miles" or unit_input=="Miles":
    if unit_input=="mi" or unit_input=="miles":
             unit = "mi"
    elif unit_input=="km" or unit_input=="kilometer":
@@ -51,7 +49,11 @@ while True:
         print("Invalid Input")
         break
     print("............")
+<<<<<<< HEAD
     routeType = input("Select your Preferred Route Type |fastest shortest pedestrian bicycle| : ").casefold()
+=======
+    routeType = input("Select your Preferred Route Type |fastest shortest pedestrian bicycle| : ")
+>>>>>>> f871919dad1729bd2910f632ce31bbb2f690e841
     type=route_choose(routeType)
     if type == "0": 
         print("Invalid input!")
