@@ -5,6 +5,34 @@ import requests
 main_api = "https://www.mapquestapi.com/directions/v2/route?" 
 key = "Ej1k612iGrgYHYUSqvrUyZtkByRg4Ubk"
 
+#Conversion of unit
+def distance_unit(dist_unit):
+    if unit_length== "mi" or unit_length=="miles" or unit_length=="Miles":
+        distance = dist_unit
+    elif unit_length=="km" or unit_length=="kilometer" or unit_length=="Kilometer":
+        distance =dist_unit * 1.61
+    elif unit_length== "m" or unit_length=="meter" or unit_length=="Meter":
+        distance = dist_unit * 1610
+
+    return distance
+
+#The Preferred Unit
+def unit_choice(unit_input):
+       
+   if unit_input== "mi" or unit_input=="miles" or unit_input=="Miles":
+            unit = "mi"
+            
+   elif unit_input=="km" or unit_input=="kilometer" or unit_input=="Kilometer":
+            unit = "km"
+        
+   elif unit_input== "m" or unit_input=="meter" or unit_input=="Meter":
+            unit = "m"
+            
+   else:
+            unit ='0'
+   return unit
+     
+
 while True:
    orig = input("Starting Location: ")
    if orig == "quit" or orig == "q":
@@ -12,20 +40,29 @@ while True:
    dest = input("Destination: ")
    if dest == "quit" or dest == "q":
         break
+  #Choose the preferred unit
+   unit_length = input("Select your Preferred Unit |m  km  mi| : ") 
+   unit=unit_choice(unit_length)
+   if unit == "0":
+        print("Invalid Input")
+        break
+   print("............")
    url = main_api + urllib.parse.urlencode({"key": key, "from":orig, "to":dest})
    print("URL: " + (url))
    json_data = requests.get(url).json()
    json_status = json_data["info"]["statuscode"]
    if json_status == 0:
+        distance = distance_unit(json_data["route"]["distance"])
         print("API Status: " + str(json_status) + " = A successful route call.\n")
         print("=============================================")
         print("Directions from " + (orig) + " to " + (dest))
         print("Trip Duration:   " + (json_data["route"]["formattedTime"]))
-        print("Kilometers:      " + str("{:.2f}".format((json_data["route"]["distance"])*1.61)))
+        print("Distance:      " + str("{:.2f}".format(distance))+ " "+ unit)
         print("Fuel Used (Ltr): " + str("{:.2f}".format((json_data["route"]["fuelUsed"])*3.78))) 
         print("=============================================")
         for each in json_data["route"]["legs"][0]["maneuvers"]:
-            print((each["narrative"]) + " (" + str("{:.2f}".format((each["distance"])*1.61) + " km)"))
+            distance = distance_unit(each["distance"])
+            print((each["narrative"]) + " (" + str("{:.2f}".format(distance)) + " " + unit + ")")
         print("=============================================\n")
         
    elif json_status == 402:
