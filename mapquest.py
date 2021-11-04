@@ -50,7 +50,7 @@ while True:
         print("Invalid Input")
         break
     print("............")
-    routeType = input("Select your Preferred Route Type |fastest shortest pedestrian bicycle| : ")
+    routeType = input("Select your Preferred Route Type |fastest shortest pedestrian bicycle| : ").casefold()
     type=route_choose(routeType)
     if type == "0": 
         print("Invalid input!")
