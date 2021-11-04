@@ -77,10 +77,10 @@ while True:
         break
     elif avoid == "none":
         #Calling the API that only has no route to avoid
-        url = main_api + urllib.parse.urlencode({"key": key, "from":orig, "to":dest, "type":type})
+        url = main_api + urllib.parse.urlencode({"key": key, "from":orig, "to":dest, "routeType":type})
     else:
         #Calling the API that only has route to avoid
-        url = main_api + urllib.parse.urlencode({"key": key, "from":orig, "to":dest, "type":type, "avoids":avoid})
+        url = main_api + urllib.parse.urlencode({"key": key, "from":orig, "to":dest, "routeType":type, "avoids":avoid})
     print("URL: " + (url))
     json_data = requests.get(url).json()
     json_status = json_data["info"]["statuscode"]
@@ -109,6 +109,6 @@ while True:
         print("**********************************************\n")
     else:
         print("************************************************************************")
-        print("For Staus Code: " + str(json_status) + "; Refer to:")
+        print("For Status Code: " + str(json_status) + "; Refer to:")
         print("https://developer.mapquest.com/documentation/directions-api/status-codes")
         print("************************************************************************\n")
