@@ -1,3 +1,4 @@
+#import libraries
 import urllib.parse
 import requests
 import os 
@@ -43,7 +44,7 @@ while True:
     dest = input("Destination: ")
     if dest == "quit" or dest == "q":
         break
-  #Choose the preferred unit
+  #Choosing the preferred unit of the user
     unit_length = input("Select your Preferred Unit |m  km  mi| : ").casefold()
     unit=unit_choice(unit_length)
     if unit == "0":
@@ -72,7 +73,7 @@ while True:
             continue 
     os.system('cls' if os.name in ('nt', 'dos') else 'clear') 
 
-#output
+#Displaying the output
     if json_status == 0:
         distance = distance_unit(json_data["route"]["distance"])
         print("API Status: " + str(json_status) + " = A successful route call.\n")
