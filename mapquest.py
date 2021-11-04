@@ -1,5 +1,6 @@
 import urllib.parse
 import requests
+import os 
 
 #API and Key
 main_api = "https://www.mapquestapi.com/directions/v2/route?" 
@@ -49,11 +50,7 @@ while True:
         print("Invalid Input")
         break
     print("............")
-<<<<<<< HEAD
-    routeType = input("Select your Preferred Route Type |fastest shortest pedestrian bicycle| : ").casefold()
-=======
     routeType = input("Select your Preferred Route Type |fastest shortest pedestrian bicycle| : ")
->>>>>>> f871919dad1729bd2910f632ce31bbb2f690e841
     type=route_choose(routeType)
     if type == "0": 
         print("Invalid input!")
@@ -63,6 +60,19 @@ while True:
     print("URL: " + (url))
     json_data = requests.get(url).json()
     json_status = json_data["info"]["statuscode"]
+
+#Asking the user what road types to avoid 
+
+    while True: 
+        avoid = input ("What do you want to avoid? [ Limited Access Highway | Toll Road | Ferry | Unpaved | Approximate Seasonal Closure | Country Border Crossing | Bridge | Tunnel | None ]: ") 
+        if avoid in ('Limited Access Highway' , 'Toll Road', 'Ferry' , 'Unpaved' , 'Approximate Seasonal Closure' , 'Country Border Crossing' , 'Bridge' , 'Tunnel', 'None'): break 
+        else: 
+            os.system('cls' if os.name in ('nt', 'dos') else 'clear') 
+            print("Invalid input!") 
+            continue 
+    os.system('cls' if os.name in ('nt', 'dos') else 'clear') 
+
+#output
     if json_status == 0:
         distance = distance_unit(json_data["route"]["distance"])
         print("API Status: " + str(json_status) + " = A successful route call.\n")
