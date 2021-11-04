@@ -34,35 +34,56 @@ def route_choose(route_input):
     else:
         type = '0'
     return type
+
+#The Preferred Route to Avoid
+def avoid_choice(avoid_input):
+    if avoid_input in ('limited access highway' , 'toll road', 'ferry' , 'unpaved' , 'approximate seasonal closure' , 'country border crossing' , 'bridge' , 'tunnel', 'none'):
+       avoid = avoid_input 
+    else:
+        avoid = '0'
+    return avoid
     
 while True:
+    #Getting the Location
     orig = input("Starting Location: ")
     if orig == "quit" or orig == "q":
         break
     dest = input("Destination: ")
     if dest == "quit" or dest == "q":
         break
-  #Choose the preferred unit
+    #Choose the preferred unit
     unit_length = input("Select your Preferred Unit |m  km  mi| : ").casefold()
     unit=unit_choice(unit_length)
     if unit == "0":
         print("Invalid Input")
         break
     print("............")
-<<<<<<< HEAD
+
+    #Choose the preferred route type
     routeType = input("Select your Preferred Route Type |fastest shortest pedestrian bicycle| : ").casefold()
-=======
-    routeType = input("Select your Preferred Route Type |fastest shortest pedestrian bicycle| : ")
->>>>>>> f871919dad1729bd2910f632ce31bbb2f690e841
     type=route_choose(routeType)
     if type == "0": 
         print("Invalid input!")
         break
     print("............")
-    url = main_api + urllib.parse.urlencode({"key": key, "from":orig, "to":dest, "type":type})
+
+    #Choose the route to avoid
+    routeAvoid = input ("Select the route you want to avoid? [ Limited Access Highway | Toll Road | Ferry | Unpaved | Approximate Seasonal Closure | Country Border Crossing | Bridge | Tunnel | None ]: ").casefold()
+    avoid = avoid_choice(routeAvoid)
+    if avoid == "0":
+        print("Invalid input!")
+        break
+    elif avoid == "none":
+        #Calling the API that only has no route to avoid
+        url = main_api + urllib.parse.urlencode({"key": key, "from":orig, "to":dest, "type":type})
+    else:
+        #Calling the API that only has route to avoid
+        url = main_api + urllib.parse.urlencode({"key": key, "from":orig, "to":dest, "type":type, "avoids":avoid})
     print("URL: " + (url))
     json_data = requests.get(url).json()
     json_status = json_data["info"]["statuscode"]
+
+    #Display of Output
     if json_status == 0:
         distance = distance_unit(json_data["route"]["distance"])
         print("API Status: " + str(json_status) + " = A successful route call.\n")
