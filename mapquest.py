@@ -1,5 +1,7 @@
+#import libraries
 import urllib.parse
 import requests
+import os 
 
 #API and Key
 main_api = "https://www.mapquestapi.com/directions/v2/route?" 
@@ -51,15 +53,22 @@ while True:
     dest = input("Destination: ")
     if dest == "quit" or dest == "q":
         break
+<<<<<<< HEAD
     #Choose the preferred unit
+=======
+  #Choosing the preferred unit of the user
+>>>>>>> 9f55f7f089e3972438fafb2d32f1084276f4bc2d
     unit_length = input("Select your Preferred Unit |m  km  mi| : ").casefold()
     unit=unit_choice(unit_length)
     if unit == "0":
         print("Invalid Input")
         break
     print("............")
+<<<<<<< HEAD
 
     #Choose the preferred route type
+=======
+>>>>>>> 9f55f7f089e3972438fafb2d32f1084276f4bc2d
     routeType = input("Select your Preferred Route Type |fastest shortest pedestrian bicycle| : ").casefold()
     type=route_choose(routeType)
     if type == "0": 
@@ -83,7 +92,22 @@ while True:
     json_data = requests.get(url).json()
     json_status = json_data["info"]["statuscode"]
 
+<<<<<<< HEAD
     #Display of Output
+=======
+#Asking the user what road types to avoid 
+
+    while True: 
+        avoid = input ("What do you want to avoid? [ Limited Access Highway | Toll Road | Ferry | Unpaved | Approximate Seasonal Closure | Country Border Crossing | Bridge | Tunnel | None ]: ") 
+        if avoid in ('Limited Access Highway' , 'Toll Road', 'Ferry' , 'Unpaved' , 'Approximate Seasonal Closure' , 'Country Border Crossing' , 'Bridge' , 'Tunnel', 'None'): break 
+        else: 
+            os.system('cls' if os.name in ('nt', 'dos') else 'clear') 
+            print("Invalid input!") 
+            continue 
+    os.system('cls' if os.name in ('nt', 'dos') else 'clear') 
+
+#Displaying the output
+>>>>>>> 9f55f7f089e3972438fafb2d32f1084276f4bc2d
     if json_status == 0:
         distance = distance_unit(json_data["route"]["distance"])
         print("API Status: " + str(json_status) + " = A successful route call.\n")
