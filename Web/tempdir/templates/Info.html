@@ -1,0 +1,45 @@
+<html>
+	<head>
+		<title>Mapquest Directions</title>
+		<link rel="stylesheet" href="static/infoStyle.css">
+	</head>
+	<body>
+		<div class="box">
+			
+			<div class="title"> <h2>Road Route</h2></div>
+			
+			<h3 class = "">Directions from {{ starting_loc }} to {{ destination_loc}}</h3>
+
+            <h5 class = "">Trip Duration ({{time_unit}}): {{duration_time}} | {{ duration }}</h5>
+            <h5 class = "">Distance ({{ distance_unit }}): {{ distance }}</h5>
+            <h5 class = "">Fuel Used ({{ volume_unit }}): {{ fuel }}</h5>
+            <h5 class = "">Type of Route: {{ route_type }}</h5>
+
+            <h3 class = "">Route Instructions</h3>
+            {% if error_message != '' %}
+
+                <p class = "message"> {{ error_message | safe }}</p>
+
+            {% endif %}
+			
+            {% for each in maneuvers %}
+            
+            <h5 class = ""><li>{{ each["narrative"] }}</li></h5>
+            
+            {% if distance_unit == "m" %}
+                <h5 class = "">Distance: {{ "%.2f"|format(each["distance"] * 1610) }} {{ distance_unit }}, Time Duration: {{ each["formattedTime"] }}</h5>
+            {% elif distance_unit == "km" %}
+                <h5 class = "">Distance: {{ "%.2f"|format(each["distance"] * 1.61) }} {{ distance_unit }}, Time Duration: {{ each["formattedTime"] }}</h5>
+            {% else %}
+                <h5 class = "">Distance: {{ "%.2f"|format(each["distance"]) }} {{ distance_unit }}, Time Duration: {{ each["formattedTime"] }}</h5>
+            {% endif %}
+
+            
+            {% endfor %}
+            </ol>
+		<!--	<div class="text-color">
+				<label>Hello</label>
+			</div> -->
+		</div>
+	</body>
+</html>
