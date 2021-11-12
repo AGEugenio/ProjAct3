@@ -2,6 +2,7 @@ body {
 	background-image: url(road.jpg);
 	background-size: cover;
 	justify-content: center;
+	background-repeat: no-repeat;
 	align-items: center;
 	display: flex;
 }
@@ -10,8 +11,9 @@ body {
 	background-color: #15172b;
 	border-radius: 20px;
 	box-sizing: border-box;
-	height: 900px;
-	width: 800px;
+	overflow: auto;
+	width: 50%;
+	margin: 100px auto;
 	padding: 25px;
 }
 
@@ -23,8 +25,12 @@ body {
 	text-align: center;
 }
 
-.text-color {
-	margin-top: 30px;
+h3 {
+	color: white;
 	font-family: sans-serif;
-	color: #eee;
+}
+
+h5 {
+	color: #ffce45;
+	font-family: sans-serif;
 }

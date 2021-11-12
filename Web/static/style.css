@@ -6,6 +6,17 @@ body {
   justify-content: center;
 }
 
+p {
+	color: red;
+	border-style: none!important;
+	font-family: sans-serif;
+}
+
+.message {
+  padding: 5px;
+  text-align: center;
+}
+
 .format {
   background-color: #15172b;
   border-radius: 20px;
