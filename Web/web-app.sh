@@ -8,7 +8,7 @@ cp web-app-final.py tempdir/.
 cp -r templates/* tempdir/templates/.
 cp -r static/* tempdir/static/.
 
-echo "FROM python" >> tempdir/Dockerfile
+echo "FROM python" > tempdir/Dockerfile
 echo "COPY  ./static /home/myapp/static/" >> tempdir/Dockerfile
 echo "COPY  ./templates /home/myapp/templates/" >> tempdir/Dockerfile
 echo "COPY  web-app-final.py /home/myapp/" >> tempdir/Dockerfile
